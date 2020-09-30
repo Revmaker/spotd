@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc & cp-cli src\\lang\\ lib\\lang\\ -r",
+    "build": "tsc & cp -r src/lang lib/lang",
     "package": "npm run build & cd dist & npm pack ..",
     "test": "jest",
     "transform": "ts-node ./test/run.ts",
@@ -30,10 +30,10 @@
   "devDependencies": {
     "@types/jest": "^20.0.6",
     "@types/node": "^8.0.20",
-    "cp-cli": "^1.1.0",
     "jest": "^20.0.4",
     "readfiles": "^1.0.0",
     "ts-jest": "^20.0.10",
+    "ts-node": "^9.0.0",
     "typescript": "^2.4.2"
   },
   "jest": {
