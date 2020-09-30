@@ -5,11 +5,12 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "build": "tsc & cp -r src/lang lib/lang",
+    "build": "tsc && cp -r src/lang lib/lang",
+    "install": "npm run build",
     "package": "npm run build & cd dist & npm pack ..",
+    "release": "npm run build && npm version patch && npm publish",
     "test": "jest",
-    "transform": "ts-node ./test/run.ts",
-    "release": "npm run build && npm version patch && npm publish"
+    "transform": "ts-node ./test/run.ts"
   },
   "author": "disklosr",
   "license": "MIT",
