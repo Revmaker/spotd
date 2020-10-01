@@ -1,6 +1,5 @@
 import { detectFeaturesInText, Features } from './feature-detect';
 var _get = require('lodash.get');
-var AsciiTable = require('cli-table');
 
 let languageDetector = new (require('languagedetect'))();
 
@@ -103,56 +102,4 @@ export function extract(text: string): string {
     .split('\n')
     .slice(startIndex, endIndex + 1)
     .join('\n');
-}
-
-export function debug(text: string): string {
-  text = text.replace(/(^[ \t]*\n){2,}/gm, '\n');
-  let detectedLanguage = languageDetector.detect(text)[0][0] || defaultLanguage;
-  let featuresPerLine = text
-    .split('\n')
-    .map((line) => detectFeaturesInText(line, detectedLanguage));
-  let scorePerLineArray = featuresPerLine.map((features) =>
-    calculateLineScore(features)
-  );
-  scorePerLineArray = updateScoresBasedOnLinePosition(scorePerLineArray);
-  let { startIndex, endIndex } = findMaxSumOfContiguousSubArray(
-    scorePerLineArray
-  );
-
-  let header = ['#', 'SCR', 'TXT'];
-  for (let item in Features) {
-    header.push(item);
-  }
-
-  let table = new AsciiTable({
-    head: header,
-  });
-
-  text.split('\n').forEach((line, index) => {
-    let row = [
-      index.toString(),
-      scorePerLineArray[index].toString(),
-      line.slice(0, 20),
-    ];
-    for (let item in Features) {
-      if (
-        featuresPerLine[index]
-          .map((feature) => Features[feature])
-          .indexOf(item) != -1
-      )
-        row.push('X');
-      else row.push('');
-    }
-    table.push(row);
-  });
-
-  let returnValue = `
-Language: ${detectedLanguage}
-startIndex: ${startIndex}
-endIndex: ${endIndex}
-${table}
-    `;
-
-  //console.log(returnValue);
-  return returnValue.toString();
 }

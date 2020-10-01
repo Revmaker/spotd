@@ -35,7 +35,7 @@
     "readfiles": "^1.0.0",
     "ts-jest": "^20.0.10",
     "ts-node": "^9.0.0",
-    "typescript": "^2.4.2"
+    "typescript": "^2.9.2"
   },
   "jest": {
     "moduleFileExtensions": [
